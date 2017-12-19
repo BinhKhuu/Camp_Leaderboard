@@ -21,7 +21,7 @@ class Ladder extends React.Component {
 		super();
 		//set default state
 		this.state = {
-			campers: [{	
+			campers: 	[{	
 									username:"loading...",
 									recent:0,
 									alltime:0,
