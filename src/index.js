@@ -8,7 +8,7 @@ class Camper extends React.Component {
 		return (
 			<tr>
 				<td scope='col'>{this.props.index}</td>
-				<td>{this.props.id.username}</td>
+				<td><img class='avatar' src={this.props.id.img} /> {this.props.id.username}</td>
 				<td>{this.props.id.recent}</td>
 				<td>{this.props.id.alltime}</td>
 			</tr>
@@ -19,8 +19,14 @@ class Camper extends React.Component {
 class Ladder extends React.Component {
 	constructor() {
 		super();
+		//set default state
 		this.state = {
-			campers: [{username:"loading",score:0,overall:0}]
+			campers: [{	
+									username:"loading...",
+									recent:0,
+									alltime:0,
+									img:'loading...',
+								}]
 		}
 	}
 	componentWillMount() {
@@ -34,6 +40,7 @@ class Ladder extends React.Component {
 		})
 	}
   render() {
+  	//set ladder to be size 100 for the loop in the table body
   	var ladder = [];
   	for(var i = 0; i< 100; i++){
   		ladder[i] = i;
@@ -45,8 +52,8 @@ class Ladder extends React.Component {
     				<tr>
 							<th scope='col' width='10%'>Rank</th>
 							<th scope='col' width='25%'>Camper</th>
-							<th scope='col' width='30%'><a href='#' onClick={() => this.getPoints('https://fcctop100.herokuapp.com/api/fccusers/top/recent')}>Points in past 30 Days </a></th>
-							<th scope='col' ><a href='#' onClick={() => this.getPoints('https://fcctop100.herokuapp.com/api/fccusers/top/alltime')}> Total Points</a></th>
+							<th scope='col' width='30%'><a class='header-links' href='#' onClick={() => this.getPoints('https://fcctop100.herokuapp.com/api/fccusers/top/recent')}>Points in past 30 Days </a></th>
+							<th scope='col' ><a class='header-links' href='#' onClick={() => this.getPoints('https://fcctop100.herokuapp.com/api/fccusers/top/alltime')}> Total Points</a></th>
 						</tr>
     			</thead>
     			<tbody>

@@ -7,7 +7,16 @@ body{
 	min-width: 100%;
 	font: 14px "Century Gothic", Futura, sans-serif;
 }
-
+.header-links {
+	color: lightgreen;
+}
+.header-links:hover {
+	color: yellow;
+}
+.avatar{
+	height: 25px;
+	width: 25px;
+}
 #camper {
 	background: black;
 	height: 100px;
