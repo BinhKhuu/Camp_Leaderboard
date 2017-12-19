@@ -9,8 +9,8 @@ class Camper extends React.Component {
 			<tr>
 				<td scope='col'>{this.props.index}</td>
 				<td>{this.props.id.username}</td>
-				<td>{this.props.id.score}</td>
-				<td>{this.props.id.overall}</td>
+				<td>{this.props.id.recent}</td>
+				<td>{this.props.id.alltime}</td>
 			</tr>
 		);
 	}
@@ -30,14 +30,7 @@ class Ladder extends React.Component {
 		fetch(url).then(response =>{
 			return response.json();
 		}).then(object =>{	
-			let users = object.map((data) => {
-				var userObj = {};
-				userObj['username'] = data.username
-				userObj['score'] = data.recent;
-				userObj['overall'] = data.alltime;
-				return userObj;
-			})
-			this.setState({campers:users})
+			this.setState({campers:object})
 		})
 	}
   render() {
