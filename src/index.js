@@ -24,23 +24,23 @@ class Ladder extends React.Component {
 		}
 	}
 	componentWillMount() {
-		var obj = {username:"",score: 0, overall: 1};
-		fetch('https://fcctop100.herokuapp.com/api/fccusers/top/recent').then(response =>{
+		this.getPoints('https://fcctop100.herokuapp.com/api/fccusers/top/recent');			
+	}
+	getPoints(url) {
+		fetch(url).then(response =>{
 			return response.json();
 		}).then(object =>{	
-			let data = object.map((d) => {
-				var rObj = {username:'',score: 0};
-				rObj['username'] = d.username
-				rObj['score'] = d.recent;
-				rObj['overall'] = d.alltime;
-				return rObj;
+			let users = object.map((data) => {
+				var userObj = {};
+				userObj['username'] = data.username
+				userObj['score'] = data.recent;
+				userObj['overall'] = data.alltime;
+				return userObj;
 			})
-			this.setState({campers:data})
+			this.setState({campers:users})
 		})
-		
 	}
   render() {
-  	console.log(this.state.campers[0].username)
   	var ladder = [];
   	for(var i = 0; i< 100; i++){
   		ladder[i] = i;
@@ -50,15 +50,15 @@ class Ladder extends React.Component {
     		<table className='table table-striped' align='right'>
     			<thead className='thead-dark'>
     				<tr>
-							<th scope='col' width='15%'>Rank</th>
-							<th scope='col' width='20%'>Camper</th>
-							<th scope='col' width='30%'>Points in past 30 Days</th>
-							<th scope='col' >Total Points</th>
+							<th scope='col' width='10%'>Rank</th>
+							<th scope='col' width='25%'>Camper</th>
+							<th scope='col' width='30%'><a href='#' onClick={() => this.getPoints('https://fcctop100.herokuapp.com/api/fccusers/top/recent')}>Points in past 30 Days </a></th>
+							<th scope='col' ><a href='#' onClick={() => this.getPoints('https://fcctop100.herokuapp.com/api/fccusers/top/alltime')}> Total Points</a></th>
 						</tr>
     			</thead>
     			<tbody>
 		    		{ladder.map((x,i) => {
-		    			//check if http request in componetwillmount has set the state
+		    			//check if http request in componetWillMount and getPoints has set the state
 		    			if(this.state.campers[i] == undefined) i = 0;
 		    			return <Camper index={i+1} id={this.state.campers[i]}/>
 		    		})}    				
